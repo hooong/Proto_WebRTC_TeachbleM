@@ -51,6 +51,7 @@ window.onunload = window.onbeforeunload = () => {
 const videoElement = document.querySelector("video");
 const audioSelect = document.querySelector("select#audioSource");
 const videoSelect = document.querySelector("select#videoSource");
+const canvasElement = document.querySelector("canvas");
 
 audioSelect.onchange = getStream;
 videoSelect.onchange = getStream;
@@ -104,7 +105,7 @@ function gotStream(stream) {
   videoSelect.selectedIndex = [...videoSelect.options].findIndex(
     option => option.text === stream.getVideoTracks()[0].label
   );
-  videoElement.srcObject = stream;
+  videoElement.srcObject = canvas.captureStream();
   socket.emit("broadcaster");
 }
 
