@@ -105,7 +105,7 @@ function gotStream(stream) {
   videoSelect.selectedIndex = [...videoSelect.options].findIndex(
     option => option.text === stream.getVideoTracks()[0].label
   );
-  videoElement.srcObject = canvas.captureStream();
+  videoElement.srcObject = stream;
   socket.emit("broadcaster");
 }
 
