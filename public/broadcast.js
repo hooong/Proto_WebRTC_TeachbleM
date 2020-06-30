@@ -51,7 +51,6 @@ window.onunload = window.onbeforeunload = () => {
 const videoElement = document.querySelector("video");
 const audioSelect = document.querySelector("select#audioSource");
 const videoSelect = document.querySelector("select#videoSource");
-const canvasElement = document.querySelector("canvas");
 
 audioSelect.onchange = getStream;
 videoSelect.onchange = getStream;
