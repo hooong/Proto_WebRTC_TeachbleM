@@ -48,7 +48,7 @@ async function loop(timestamp) {
 async function predict() {
     // Prediction #1: run input through posenet
     // estimatePose can take in an image, video or canvas html element
-    const { pose, posenetOutput } = await model.estimatePose(video.srcObject);
+    const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
     // Prediction 2: run input through teachable machine classification model
     const prediction = await model.predict(posenetOutput);
 
@@ -63,8 +63,8 @@ async function predict() {
 }
 
 function drawPose(pose) {
-    if (video.srcObject) {
-        ctx.drawImage(video.srcObject, 0, 0);
+    if (webcam.canvas) {
+        ctx.drawImage(webcam.canvas, 0, 0);
         // draw the keypoints and skeleton
         if (pose) {
             const minPartConfidence = 0.5;
