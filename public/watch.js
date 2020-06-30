@@ -21,7 +21,21 @@ socket.on("offer", (id, description) => {
     });
   peerConnection.ontrack = event => {
     video.srcObject = event.streams[0];
+    document.getElementById("count").innerHTML = event.streams[1];
   };
+
+
+//   peerConnection.ondatachannel = function(event) {
+//     var channel = event.channel;
+// ﻿   channel.onopen = function(event) {
+//       channel.send('Hi back!');
+//     }
+//     channel.onmessage = function(event) {
+//       console.log(event.data);
+//       document.getElementById("count").innerHTML = event.data;
+//     }
+//   }
+
   peerConnection.onicecandidate = event => {
     if (event.candidate) {
       socket.emit("candidate", id, event.candidate);

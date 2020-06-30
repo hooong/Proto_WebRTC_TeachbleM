@@ -10,6 +10,12 @@ async function init_teach() {
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
 
+    document.getElementById("countdiv").style.display = "inline";
+    document.getElementById("canvas").style.display = "inline";
+
+    poseD = false;
+    count = 0;
+
     // load the model and metadata
     // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
     // Note: the pose library adds a tmPose object to your window (window.tmPose)
@@ -17,7 +23,7 @@ async function init_teach() {
     maxPredictions = model.getTotalClasses();
 
     // Convenience function to setup a webcam
-    const size = 200;
+    const size = 500;
     const flip = true; // whether to flip the webcam
     webcam = new tmPose.Webcam(size, size, flip); // width, height, flip
     await webcam.setup(); // request access to the webcam
@@ -33,9 +39,7 @@ async function init_teach() {
         labelContainer.appendChild(document.createElement("div"));
     }
 
-    const canvasVideo = document.getElementById("canvasV");
     const canvasStream = document.getElementById("canvas");
-    canvasVideo.srcObject = canvasStream.captureStream(25);
 
 }
 
@@ -52,11 +56,21 @@ async function predict() {
     // Prediction 2: run input through teachable machine classification model
     const prediction = await model.predict(posenetOutput);
 
-    for (let i = 0; i < maxPredictions; i++) {
-        const classPrediction =
-            prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-        labelContainer.childNodes[i].innerHTML = classPrediction;
+    // for (let i = 0; i < maxPredictions; i++) {
+    //     const classPrediction =
+    //         prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+    //     labelContainer.childNodes[i].innerHTML = classPrediction;
+    // }
+
+    if(!poseD && prediction[0].probability.toFixed(2) == 1.00 ){
+        poseD = !poseD;
+        count += 1;
+        document.getElementById("count").innerHTML = count;
     }
+    
+    if(prediction[0].probability.toFixed(2) != 1.0)
+        poseD = false;
+
 
     // finally draw the poses
     drawPose(pose);

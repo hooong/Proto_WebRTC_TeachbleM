@@ -3,20 +3,36 @@
   <head>
     <title>Broadcaster</title>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   </head>
   <body>
-    <section class="select">
+    <section class="select" style="display:none">
       <label for="audioSource">Audio source: </label>
       <select id="audioSource"></select>
     </section>
 
-    <section class="select">
+    <section class="select" style="display:none">
       <label for="videoSource">Video source: </label>
       <select id="videoSource"></select>
     </section>
 
-    <video playsinline autoplay muted></video>
+    <video playsinline autoplay muted hidden></video>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/broadcast.js"></script>
+    <script src="/tm.js"></script>
+
+    <!-- teachable machine -->
+    <div ><canvas width="500" height="500" id="canvas"></canvas></div>
+    <div id="label-container"></div>
+    <div id="countdiv">
+      <p style="position: relative; left: 42%;">현재 개수</p>
+      <p style="position: relative; left: 47%;" id="count">0</p>
+    </div>
+    <button style="position: relative; left: 40%;" type="button" class="btn btn-dark" onclick="init_teach()">운동 시작</button>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   </body>
 </html>

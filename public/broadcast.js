@@ -26,12 +26,24 @@ socket.on("watcher", id => {
     }
   };
 
+  // count보낼 데이터 채널
+  channel = peerConnection.createDataChannel("c");
+  channel.onopen = function(e) {
+    channel.send(document.getElementById("count").textContent);
+  }
+  channel.onmessage = function(e) {
+    console.log(e.data);
+  };
+
   peerConnection
     .createOffer()
     .then(sdp => peerConnection.setLocalDescription(sdp))
     .then(() => {
       socket.emit("offer", id, peerConnection.localDescription);
     });
+
+  
+
 });
 
 socket.on("candidate", (id, candidate) => {
@@ -104,7 +116,9 @@ function gotStream(stream) {
   videoSelect.selectedIndex = [...videoSelect.options].findIndex(
     option => option.text === stream.getVideoTracks()[0].label
   );
-  videoElement.srcObject = stream;
+  const canvasV = document.getElementById("canvas");
+  videoElement.srcObject = canvasV.captureStream(30);
+
   socket.emit("broadcaster");
 }
 
