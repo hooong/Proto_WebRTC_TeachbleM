@@ -7,7 +7,7 @@
     <!-- <link href="/styles.css" rel="stylesheet" /> -->
   </head>
   <body>
-    <video width="500" height="500" id="v" onclick="vplay()"></video>
+    <video width="500" height="500" autoplay></video>
     <p style="position: relative; left: 22%;">WebRTC를 사용한 실시간 스트리밍 영상</p>
     <!-- <div>
       <p>현재 개수</p>
@@ -15,13 +15,5 @@
     </div> -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="/watch.js"></script>
-
-    <script>
-      function vplay(){
-        var player = document.getElementById("v");
-        player.play();
-      }
-      
-    </script>
   </body>
 </html>
