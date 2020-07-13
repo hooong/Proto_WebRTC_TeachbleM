@@ -21,7 +21,7 @@ socket.on("offer", (id, description) => {
     });
   peerConnection.ontrack = event => {
     video.srcObject = event.streams[0];
-    document.getElementById("count").innerHTML = event.streams[1];
+    // document.getElementById("count").innerHTML = event.streams[1];
   };
 
 
